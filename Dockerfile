@@ -20,4 +20,4 @@ RUN mkdir -p /usr/local/src \
     && curl -L https://github.com/tdewolff/minify/releases/latest/download/minify_linux_amd64.tar.gz | tar -xz \
     && mv minify /usr/local/bin/
 
-RUN hugo version
+RUN hugo version && minify --version && echo -e "node \c" && node --version
