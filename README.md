@@ -21,3 +21,13 @@ This Docker image also comes with:
 - openssh-client
 - [minify](https://github.com/tdewolff/minify)
 - py-pygments
+
+## Build
+
+Set `ENV VERSION` in the Dockerfile.
+
+```bash
+docker pull node:alpine
+docker build -t irgendwr/hugo:$version .
+docker push irgendwr/hugo:$version
+```
