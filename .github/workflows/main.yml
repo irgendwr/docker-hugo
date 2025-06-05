@@ -41,4 +41,6 @@ jobs:
           add: 'Dockerfile'
           message: 'v${{ env.version }}'
           new_branch: 'v${{ env.version }}'
-          tag: 'v${{ env.version }}'
+          # Tags are only really used by this script currently
+          # remove the "v" to prevent collision with branch name
+          tag: '${{ env.version }}'
