@@ -25,11 +25,16 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Update version in code
         run: sed "s/ENV VERSION .*/ENV VERSION ${{ env.version }}/" -i Dockerfile
+      - name: Log in to Docker Hub
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build image
         run: |
           docker pull node:alpine
-          docker build -t irgendwr/hugo:${{ env.version }} .
-          docker push irgendwr/hugo:${{ env.version }}
+          docker build -t nightoo/hugo:${{ env.version }} .
+          docker push nightoo/hugo:${{ env.version }}
       - name: Add & Commit
         uses: EndBug/add-and-commit@v9.1.4
         with:

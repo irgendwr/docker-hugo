@@ -4,7 +4,7 @@ def make_comparable(version_string: str) -> list[int]:
     return [int(part) for part in version_string.replace("v", "").split(".")]
 
 ENDPOINT_HUGO_RELEASES = "https://api.github.com/repos/gohugoio/hugo/releases"
-ENDPOINT_MY_TAGS = "https://api.github.com/repos/irgendwr/docker-hugo/tags?per_page=1"
+ENDPOINT_MY_TAGS = "https://api.github.com/repos/DeinAlptraum/docker-hugo/tags?per_page=1"
 
 request_counter = 1
 
