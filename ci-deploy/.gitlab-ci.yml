@@ -1,4 +1,6 @@
-image: irgendwr/hugo:latest
+image:
+    name: irgendwr/hugo:latest
+    entrypoint: [""]
 
 stages:
     - test
