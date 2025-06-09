@@ -18,7 +18,6 @@ The image is based on Alpine and also includes:
 ## Build
 
 ```bash
-docker pull node:alpine
 docker build -t irgendwr/hugo:$version .
 docker push irgendwr/hugo:$version
 ```
