@@ -28,17 +28,14 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build image
-        run: |
-          docker pull node:alpine
-          docker build -t nightoo/hugo:${{ env.version }} .
-          docker push nightoo/hugo:${{ env.version }}
       - name: Add & Commit
         uses: EndBug/add-and-commit@v9.1.4
         with:
           add: 'Dockerfile'
           message: 'v${{ env.version }}'
           new_branch: 'v${{ env.version }}'
-          # Tags are only really used by this script currently
-          # remove the "v" to prevent collision with branch name
-          tag: '${{ env.version }}'
+      - name: Build image
+        run: |
+          docker pull node:alpine
+          docker build -t nightoo/hugo:${{ env.version }} .
+          docker push nightoo/hugo:${{ env.version }}
