@@ -1,26 +1,19 @@
-# Hugo Docker Image
+# Hugo Docker image
 
-[![Docker Automated build](https://img.shields.io/docker/automated/irgendwr/hugo.svg)](https://store.docker.com/community/images/irgendwr/hugo)
-[![Docker Build Status](https://img.shields.io/docker/build/irgendwr/hugo.svg)](https://store.docker.com/community/images/irgendwr/hugo/builds)
-[![Docker Pulls](https://img.shields.io/docker/pulls/irgendwr/hugo.svg)](https://store.docker.com/community/images/irgendwr/hugo)
-[![Image Info](https://images.microbadger.com/badges/image/irgendwr/hugo.svg)](https://microbadger.com/images/irgendwr/hugo)
+[![Docker Image Version](https://img.shields.io/docker/v/irgendwr/hugo)](https://hub.docker.com/r/irgendwr/hugo)
+[![Docker Image Size](https://img.shields.io/docker/image-size/irgendwr/hugo)](https://hub.docker.com/r/irgendwr/hugo)
+[![Docker Pulls](https://img.shields.io/docker/pulls/irgendwr/hugo)](https://hub.docker.com/r/irgendwr/hugo)
 
-This is a fork from [jguyomard/docker-hugo](https://github.com/jguyomard/docker-hugo) that adds [Node](https://github.com/nodejs/docker-node) and py-pygments.
+This provides a [Docker](https://www.docker.com/) container image for [Hugo](https://github.com/gohugoio/hugo/), an open-source static site generator.
 
-[Hugo](https://github.com/gohugoio/hugo/) is a fast and flexible static site generator, written in Go.
-Hugo flexibly works with many formats and is ideal for blogs, docs, portfolios and much more.
-Hugo’s speed fosters creativity and makes building a website fun again.
-
-This Lightweight Docker Image is based on Alpine, and comes with rsync for Continuous Deployment.
-
-This Docker image also comes with:
+The image is based on Alpine and also includes:
 
 - [Node](https://github.com/nodejs/docker-node)
+- [py-pygments](https://github.com/pygments/pygments)
+- [minify](https://github.com/tdewolff/minify)
 - rsync
 - git
 - openssh-client
-- [minify](https://github.com/tdewolff/minify)
-- py-pygments
 
 ## Build
 
@@ -31,3 +24,8 @@ docker pull node:alpine
 docker build -t irgendwr/hugo:$version .
 docker push irgendwr/hugo:$version
 ```
+
+## Credit
+
+- [@DeinAlptraum](https://github.com/DeinAlptraum/) for the automatic builder via GitHub actions
+- [@jguyomard](https://github.com/jguyomard/) for repository this was forked from: [jguyomard/docker-hugo](https://github.com/jguyomard/docker-hugo)
