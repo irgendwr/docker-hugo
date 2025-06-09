@@ -36,7 +36,7 @@ auth = b64encode(os.environ["GH_TOKEN"].encode()).decode()
 res = requests.get(ENDPOINT_HUGO_IMAGES, headers={"Authorization": f"Bearer {auth}"})
 
 available_tags = set(
-    [tag[1:] for tag in res.json()["tags"] if version_regex.match(tag)]
+    [tag[1:] for tag in res.json()["tags"] if version_regex.search(tag)]
 )
 tags_to_process = available_tags - our_tags
 
