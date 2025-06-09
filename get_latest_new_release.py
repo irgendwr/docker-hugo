@@ -50,4 +50,4 @@ else:
     maximum_new_version = "NONE"
     print("No new release found, stopping.", file=stderr)
 
-print("version=", maximum_new_version, sep="")
+print(f"version={maximum_new_version}")
