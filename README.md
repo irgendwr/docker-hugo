@@ -17,8 +17,6 @@ The image is based on Alpine and also includes:
 
 ## Build
 
-Set `ENV VERSION` in the Dockerfile.
-
 ```bash
 docker pull node:alpine
 docker build -t irgendwr/hugo:$version .
