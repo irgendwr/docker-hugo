@@ -14,13 +14,20 @@ ENDPOINT_OUR_TAGS = (
     "https://hub.docker.com/v2/namespaces/nightoo/repositories/hugo/tags"
 )
 
+version_regex = re.compile("([0-9]+\\.){2}[0-9]+")
 our_tags = set()
 try_next_page = True
 current_url = ENDPOINT_OUR_TAGS
 while try_next_page:
     print("Retrieving tags at", current_url, file=stderr)
     content = requests.get(current_url).json()
-    our_tags = our_tags.union([image["name"] for image in content["results"]])
+    our_tags = our_tags.union(
+        [
+            image["name"]
+            for image in content["results"]
+            if version_regex.match(image["name"])
+        ]
+    )
 
     current_url = content["next"]
     try_next_page = bool(current_url)
@@ -28,12 +35,9 @@ while try_next_page:
 auth = b64encode(os.environ["GH_TOKEN"].encode()).decode()
 res = requests.get(ENDPOINT_HUGO_IMAGES, headers={"Authorization": f"Bearer {auth}"})
 
-version_regex = re.compile("v([0-9]+\\.){2}[0-9]+")
-available_tags = set([
-    tag[1:]
-    for tag in res.json()["tags"]
-    if version_regex.match(tag)
-])
+available_tags = set(
+    [tag[1:] for tag in res.json()["tags"] if version_regex.match(tag)]
+)
 tags_to_process = available_tags - our_tags
 
 print("Unprocessed releases:", file=stderr)
