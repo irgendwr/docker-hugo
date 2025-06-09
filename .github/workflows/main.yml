@@ -12,9 +12,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       - name: Determine latest un-imaged version
-        run: |
-          python get_latest_new_release.py
-          echo "version=$(cat _version.txt)" >> $GITHUB_ENV
+        run: GH_TOKEN=${{ secrets.GITHUB_TOKEN }} python get_latest_new_release.py >> $GITHUB_ENV
       - name: Quit if no new version
         run: |
           if [ "${{ env.version }}" = "NONE" ]; then
