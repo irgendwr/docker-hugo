@@ -22,7 +22,7 @@ try:
     latest_tag = res.json()[0]["name"]
     print("Checking for releases older than", latest_tag, file=stderr)
 except IndexError:
-    latest_tag = None
+    latest_tag = "v1.0.0.0"
     print("No tags found, starting with newest Hugo release", file=stderr)
 
 
