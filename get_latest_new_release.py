@@ -46,4 +46,4 @@ else:
     minimum_new_version = "NONE"
     print("No new release found, stopping.", file=stderr)
 
-print(minimum_new_version.replace("v", ""))
+print("version=", minimum_new_version.replace("v", ""), sep="")
