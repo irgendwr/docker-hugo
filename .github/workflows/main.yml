@@ -36,5 +36,5 @@ jobs:
           new_branch: 'v${{ env.version }}'
       - name: Build image
         run: |
-          docker build -t nightoo/hugo:${{ env.version }} .
-          docker push nightoo/hugo:${{ env.version }}
+          docker build -t irgendwr/hugo:${{ env.version }} .
+          docker push irgendwr/hugo:${{ env.version }}

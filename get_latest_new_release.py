@@ -11,7 +11,7 @@ def make_comparable(version_string: str) -> list[int]:
 
 ENDPOINT_HUGO_IMAGES = "https://ghcr.io/v2/gohugoio/hugo/tags/list"
 ENDPOINT_OUR_TAGS = (
-    "https://hub.docker.com/v2/namespaces/nightoo/repositories/hugo/tags"
+    "https://hub.docker.com/v2/namespaces/irgendwr/repositories/hugo/tags"
 )
 
 version_regex = re.compile("([0-9]+\\.){2}[0-9]+")
