@@ -1,0 +1,40 @@
+name: Build Release Image
+
+on:
+  workflow_dispatch:
+  # Run every day at 5:40.
+  schedule:
+    - cron:  '40 5 * * *'
+jobs:
+  buildflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Determine latest un-imaged version
+        run: GH_TOKEN=${{ secrets.GITHUB_TOKEN }} python get_latest_new_release.py >> $GITHUB_ENV
+      - name: Quit if no new version
+        run: |
+          if [ "${{ env.version }}" = "NONE" ]; then
+            gh run cancel ${{ github.run_id }}
+            gh run watch ${{ github.run_id }}
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update version in code
+        run: sed "s/FROM ghcr\.io\/gohugoio\/hugo:v.*/FROM ghcr\.io\/gohugoio\/hugo:v${{ env.version }}/" -i Dockerfile
+      - name: Log in to Docker Hub
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Add & Commit
+        uses: EndBug/add-and-commit@v9.1.4
+        with:
+          add: 'Dockerfile'
+          message: 'v${{ env.version }}'
+          new_branch: 'v${{ env.version }}'
+      - name: Build image
+        run: |
+          docker build -t irgendwr/hugo:${{ env.version }} .
+          docker push irgendwr/hugo:${{ env.version }}
