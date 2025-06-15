@@ -1,4 +1,4 @@
-FROM ghcr.io/gohugoio/hugo:v0.147.8
+FROM ghcr.io/gohugoio/hugo:v0.147.3
 
 USER root:root
 
