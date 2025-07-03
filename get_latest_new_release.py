@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import requests
 import os
 from base64 import b64encode
@@ -9,6 +11,7 @@ def make_comparable(version_string: str) -> list[int]:
     return [int(part) for part in version_string.replace("v", "").split(".")]
 
 
+MIN_VERSION = "0.136.0"
 ENDPOINT_HUGO_IMAGES = "https://ghcr.io/v2/gohugoio/hugo/tags/list"
 ENDPOINT_OUR_TAGS = (
     "https://hub.docker.com/v2/namespaces/irgendwr/repositories/hugo/tags"
@@ -45,7 +48,11 @@ print(tags_to_process, file=stderr)
 
 if tags_to_process:
     maximum_new_version = max(tags_to_process, key=make_comparable)
-    print("Preparing image for", maximum_new_version, file=stderr)
+    if maximum_new_version >= MIN_VERSION:
+        print("Preparing image for", maximum_new_version, file=stderr)
+    else:
+        maximum_new_version = "NONE"
+        print("No new release above minimum found, stopping.", file=stderr)
 else:
     maximum_new_version = "NONE"
     print("No new release found, stopping.", file=stderr)
